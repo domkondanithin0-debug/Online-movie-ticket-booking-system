@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#101018">
+    <title>CineBook | Online Movie Ticket Booking</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header class="header">
+        <a href="#home" class="logo" aria-label="CineBook home">
+            <span class="logo-icon">▶</span> Cine<span>Book</span>
+        </a>
+
+        <button id="menuToggle" class="menu-toggle" aria-label="Toggle navigation"
+            aria-expanded="false">☰</button>
+
+        <nav id="navigation" class="navigation">
+            <a href="#home" class="nav-link">Home</a>
+            <a href="#movies" class="nav-link">Movies</a>
+            <a href="#theatres" class="nav-link">Theatres</a>
+            <a href="#myBookings" class="nav-link">My Bookings</a>
+            <a href="#about" class="nav-link">About Us</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </nav>
+
+        <div class="header-actions" id="headerActions">
+            <button class="btn btn-outline btn-small" data-page="login">Login</button>
+            <button class="btn btn-primary btn-small" data-page="register">Sign Up</button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Homepage -->
+        <section id="home" class="page active">
+            <section class="hero">
+                <div class="hero-content">
+                    <span class="eyebrow">YOUR NEXT GREAT MOVIE NIGHT</span>
+                    <h1>Your Movie Experience <span>Starts Here!</span></h1>
+                    <p>Discover your favorite movies, choose your seats, and make every movie night memorable.</p>
+                    <a href="#movies" class="btn btn-primary">Explore Movies <span>→</span></a>
+                </div>
+                <div class="hero-decoration" aria-hidden="true">
+                    <div class="hero-ticket">CINEBOOK<br><span>YOUR SEAT AWAITS</span></div>
+                    <span class="floating-star">✦</span>
+                </div>
+            </section>
+
+            <section class="section container" id="movies">
+                <div class="section-heading">
+                    <div>
+                        <span class="eyebrow">FIND YOUR NEXT FAVORITE</span>
+                        <h2>Explore Movies</h2>
+                    </div>
+                    <span id="movieCount" class="muted"></span>
+                </div>
+
+                <div class="movie-toolbar">
+                    <label class="search-box">
+                        <span aria-hidden="true">⌕</span>
+                        <input type="search" id="movieSearch"
+                            placeholder="Search movies..." aria-label="Search movies">
+                    </label>
+
+                    <select id="genreFilter" aria-label="Filter by genre">
+                        <option value="">All Genres</option>
+                        <option>Action</option>
+                        <option>Comedy</option>
+                        <option>Drama</option>
+                        <option>Romance</option>
+                        <option>Thriller</option>
+                        <option>Science Fiction</option>
+                        <option>Animation</option>
+                    </select>
+
+                    <select id="languageFilter" aria-label="Filter by language">
+                        <option value="">All Languages</option>
+                        <option>English</option>
+                        <option>Hindi</option>
+                        <option>Telugu</option>
+                        <option>Tamil</option>
+                    </select>
+
+                    <select id="sortMovies" aria-label="Sort movies">
+                        <option value="default">Recommended</option>
+                        <option value="rating">Highest Rated</option>
+                        <option value="title">Title A–Z</option>
+                    </select>
+                </div>
+
+                <div class="category-heading">
+                    <h3>Now Showing</h3>
+                    <span class="live-dot"></span>
+                </div>
+                <div id="nowShowing" class="movie-grid"></div>
+
+                <div class="category-heading upcoming-heading">
+                    <h3>Coming Soon</h3>
+                </div>
+                <div id="upcomingMovies" class="movie-grid"></div>
+
+                <p id="emptyMovies" class="empty-state hidden">
+                    No movies found. Try changing your search or filters.
+                </p>
+            </section>
+
+            <section id="theatres" class="section container">
+                <div class="section-heading">
+                    <div>
+                        <span class="eyebrow">YOUR LOCAL CINEMA EXPERIENCE</span>
+                        <h2>Popular Theatres</h2>
+                    </div>
+                </div>
+                <div id="theatreCards" class="theatre-grid"></div>
+                <p class="notice">Theatres and showtimes are sample data for demonstration.</p>
+            </section>
+
+            <section id="about" class="section about-section">
+                <div class="container about-content">
+                    <span class="eyebrow">ABOUT CINEBOOK</span>
+                    <h2>Less planning. More movie magic.</h2>
+                    <p>
+                        CineBook is a demonstration movie booking website designed to make
+                        exploring movies, choosing seats, and managing bookings simple.
+                        Browse sample movies and create a demo booking in just a few steps.
+                    </p>
+                    <div class="feature-row">
+                        <div><strong>🎬</strong><span>Discover Movies</span></div>
+                        <div><strong>💺</strong><span>Choose Your Seats</span></div>
+                        <div><strong>🎟️</strong><span>Manage Tickets</span></div>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <!-- Login -->
+        <section id="login" class="page auth-page">
+            <div class="auth-card">
+                <div class="auth-symbol">▶</div>
+                <span class="eyebrow">WELCOME BACK</span>
+                <h2>Login to CineBook</h2>
+                <p class="muted">Your next movie night is waiting.</p>
+
+                <form id="loginForm">
+                    <label for="loginEmail">Email Address</label>
+                    <input type="email" id="loginEmail" autocomplete="email" required
+                        placeholder="you@example.com">
+
+                    <label for="loginPassword">Password</label>
+                    <div class="password-field">
+                        <input type="password" id="loginPassword"
+                            autocomplete="current-password" required minlength="6"
+                            placeholder="Enter your password">
+                        <button type="button" class="password-toggle"
+                            data-toggle="loginPassword">Show</button>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="rememberMe"> Remember Me
+                        </label>
+                        <button type="button" class="text-button" data-page="forgotPassword">
+                            Forgot Password?
+                        </button>
+                    </div>
+
+                    <button class="btn btn-primary btn-full" type="submit">Login</button>
+                    <p id="loginMessage" class="form-message" role="status"></p>
+                </form>
+
+                <p class="auth-switch">Don't have an account?
+                    <button class="text-button" data-page="register">Sign Up</button>
+                </p>
+                <button class="text-button back-home" data-page="home">← Back to Home</button>
+                <p class="demo-note">Demo only: account details are stored locally in this browser.</p>
+            </div>
+        </section>
+
+        <!-- Registration -->
+        <section id="register" class="page auth-page">
+            <div class="auth-card">
+                <div class="auth-symbol">▶</div>
+                <span class="eyebrow">JOIN CINEBOOK</span>
+                <h2>Create Your Account</h2>
+                <p class="muted">Sign up to manage your demo bookings.</p>
+
+                <form id="registerForm">
+                    <label for="registerName">Full Name</label>
+                    <input type="text" id="registerName" autocomplete="name"
+                        required minlength="2" maxlength="80" placeholder="Your full name">
+
+                    <label for="registerEmail">Email Address</label>
+                    <input type="email" id="registerEmail" autocomplete="email"
+                        required placeholder="you@example.com">
+
+                    <label for="registerMobile">Mobile Number</label>
+                    <input type="tel" id="registerMobile" autocomplete="tel"
+                        required inputmode="numeric" pattern="[0-9]{10}"
+                        maxlength="10" placeholder="10-digit mobile number">
+
+                    <label for="registerPassword">Password</label>
+                    <div class="password-field">
+                        <input type="password" id="registerPassword"
+                            autocomplete="new-password" required minlength="8"
+                            placeholder="At least 8 characters">
+                        <button type="button" class="password-toggle"
+                            data-toggle="registerPassword">Show</button>
+                    </div>
+                    <div id="passwordStrength" class="strength-text"></div>
+
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword"
+                        autocomplete="new-password" required minlength="8"
+                        placeholder="Re-enter your password">
+
+                    <button class="btn btn-primary btn-full" type="submit">Create Account</button>
+                    <p id="registerMessage" class="form-message" role="status"></p>
+                </form>
+
+                <p class="auth-switch">Already have an account?
+                    <button class="text-button" data-page="login">Login</button>
+                </p>
+                <button class="text-button back-home" data-page="home">← Back to Home</button>
+                <p class="demo-note">Use fictional details for this demonstration. Do not use a real password.</p>
+            </div>
+        </section>
+
+        <!-- Forgot password -->
+        <section id="forgotPassword" class="page auth-page">
+            <div class="auth-card">
+                <div class="auth-symbol">✉</div>
+                <span class="eyebrow">ACCOUNT HELP</span>
+                <h2>Forgot Password?</h2>
+                <p class="muted">Enter your registered email to check your demo account.</p>
+
+                <form id="forgotForm">
+                    <label for="forgotEmail">Email Address</label>
+                    <input type="email" id="forgotEmail" required
+                        autocomplete="email" placeholder="you@example.com">
+                    <button class="btn btn-primary btn-full" type="submit">Continue</button>
+                    <p id="forgotMessage" class="form-message" role="status"></p>
+                </form>
+
+                <button class="text-button back-home" data-page="login">← Back to Login</button>
+                <p class="demo-note">This demo does not send real password-reset emails or change passwords.</p>
+            </div>
+        </section>
+
+        <!-- Booking flow -->
+        <section id="booking" class="page container booking-page">
+            <div class="booking-header">
+                <button class="text-button" id="bookingBack">← Back</button>
+                <div>
+                    <span class="eyebrow">YOUR CINEMA EXPERIENCE</span>
+                    <h2 id="bookingMovieTitle">Book Your Tickets</h2>
+                </div>
+            </div>
+
+            <div class="steps">
+                <div class="step active" data-step-label="1"><span>1</span>Showtime</div>
+                <div class="step" data-step-label="2"><span>2</span>Seats</div>
+                <div class="step" data-step-label="3"><span>3</span>Checkout</div>
+            </div>
+
+            <div id="showtimeStep" class="booking-panel">
+                <h3>Select Theatre & Showtime</h3>
+                <div class="form-grid">
+                    <div>
+                        <label for="theatreSelect">Theatre</label>
+                        <select id="theatreSelect" required></select>
+                    </div>
+                    <div>
+                        <label for="showDate">Date</label>
+                        <input type="date" id="showDate" required>
+                    </div>
+                    <div>
+                        <label for="showtimeSelect">Showtime</label>
+                        <select id="showtimeSelect" required>
+                            <option value="">Select a showtime</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="showtimeInfo" class="showtime-info"></div>
+                <button id="continueToSeats" class="btn btn-primary" type="button">
+                    Continue to Seat Selection →
+                </button>
+            </div>
+
+            <div id="seatStep" class="booking-panel hidden">
+                <div class="section-heading">
+                    <div>
+                        <h3>Select Your Seats</h3>
+                        <p class="muted">Choose up to 10 seats for your booking.</p>
+                    </div>
+                    <span id="seatCount" class="seat-count">0 selected</span>
+                </div>
+
+                <div class="screen">SCREEN THIS WAY</div>
+                <div id="seatMap" class="seat-map" aria-label="Cinema seating layout"></div>
+
+                <div class="seat-legend">
+                    <span><i class="legend-seat available"></i>Available</span>
+                    <span><i class="legend-seat selected"></i>Selected</span>
+                    <span><i class="legend-seat booked"></i>Booked</span>
+                    <span><i class="legend-seat premium"></i>Premium</span>
+                </div>
+
+                <div class="selection-summary">
+                    <div><span>Selected seats</span><strong id="selectedSeatNames">None</strong></div>
+                    <div><span>Ticket subtotal</span><strong id="seatSubtotal">₹0</strong></div>
+                </div>
+                <div class="button-row">
+                    <button class="btn btn-outline" id="backToShowtime" type="button">← Back</button>
+                    <button class="btn btn-primary" id="continueToCheckout" type="button">
+                        Continue to Checkout →
+                    </button>
+                </div>
+            </div>
+
+            <div id="checkoutStep" class="booking-panel hidden">
+                <h3>Review Your Booking</h3>
+                <div id="checkoutSummary" class="checkout-summary"></div>
+
+                <form id="checkoutForm">
+                    <h3>Customer Details</h3>
+                    <div class="form-grid">
+                        <div>
+                            <label for="customerName">Full Name</label>
+                            <input id="customerName" type="text" required minlength="2"
+                                maxlength="80" autocomplete="name">
+                        </div>
+                        <div>
+                            <label for="customerEmail">Email Address</label>
+                            <input id="customerEmail" type="email" required autocomplete="email">
+                        </div>
+                        <div>
+                            <label for="customerMobile">Mobile Number</label>
+                            <input id="customerMobile" type="tel" required
+                                inputmode="numeric" pattern="[0-9]{10}" maxlength="10"
+                                autocomplete="tel" placeholder="10-digit mobile number">
+                        </div>
+                    </div>
+
+                    <div class="demo-payment">
+                        <span>🔒</span>
+                        <div><strong>Demo Payment</strong>
+                            <p>No real payment will be collected. Confirmation is simulated.</p>
+                        </div>
+                    </div>
+
+                    <div class="button-row">
+                        <button class="btn btn-outline" id="backToSeats" type="button">← Back</button>
+                        <button class="btn btn-primary" type="submit">Confirm Booking</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Confirmation -->
+        <section id="confirmation" class="page container confirmation-page">
+            <div class="confirmation-heading">
+                <div class="success-icon">✓</div>
+                <span class="eyebrow">BOOKING CONFIRMED</span>
+                <h2>Your Movie Night Is Set!</h2>
+                <p class="muted">Your demo ticket has been created successfully.</p>
+            </div>
+            <div id="confirmationTicket" class="ticket"></div>
+            <div class="button-row centered">
+                <button class="btn btn-outline" id="printConfirmation">Print Ticket</button>
+                <button class="btn btn-outline" data-page="myBookings">View My Bookings</button>
+                <button class="btn btn-primary" data-page="home">Return Home</button>
+            </div>
+        </section>
+
+        <!-- Booking history -->
+        <section id="myBookings" class="page container section bookings-page">
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">YOUR TICKETS</span>
+                    <h2>My Bookings</h2>
+                    <p class="muted">Review and manage your confirmed demo bookings.</p>
+                </div>
+                <button class="btn btn-primary" data-page="home">Explore Movies</button>
+            </div>
+            <div id="bookingHistory" class="booking-history"></div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="page container section contact-page">
+            <span class="eyebrow">WE'D LOVE TO HEAR FROM YOU</span>
+            <h2>Contact CineBook</h2>
+            <p class="muted">Questions about this demonstration project? Send a sample message.</p>
+            <form id="contactForm" class="contact-form">
+                <label for="contactName">Name</label>
+                <input id="contactName" required maxlength="80" placeholder="Your name">
+                <label for="contactEmail">Email</label>
+                <input id="contactEmail" type="email" required placeholder="you@example.com">
+                <label for="contactMessage">Message</label>
+                <textarea id="contactMessage" required maxlength="1000" rows="5"
+                    placeholder="Write your message..."></textarea>
+                <button class="btn btn-primary" type="submit">Send Demo Message</button>
+                <p id="contactFeedback" class="form-message" role="status"></p>
+            </form>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-content">
+            <div>
+                <a href="#home" class="logo"><span class="logo-icon">▶</span> Cine<span>Book</span></a>
+                <p>Your seat. Your screen. Your story.</p>
+            </div>
+            <div>
+                <h4>Quick Links</h4>
+                <a href="#movies">Movies</a>
+                <a href="#theatres">Theatres</a>
+                <a href="#myBookings">My Bookings</a>
+            </div>
+            <div>
+                <h4>Contact</h4>
+                <p>Email: hello@cinebook.example</p>
+                <p>Phone: +91 90000 00000</p>
+                <p>Social: Instagram · Facebook · YouTube</p>
+            </div>
+        </div>
+        <div class="footer-bottom">© <span id="currentYear"></span> CineBook. College project demonstration.</div>
+    </footer>
+
+    <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+    <dialog id="movieDialog" class="movie-dialog">
+        <button id="closeMovieDialog" class="dialog-close" aria-label="Close">×</button>
+        <div id="movieDialogContent"></div>
+    </dialog>
+
+    <dialog id="ticketDialog" class="ticket-dialog">
+        <button id="closeTicketDialog" class="dialog-close" aria-label="Close">×</button>
+        <div id="ticketDialogContent"></div>
+        <button class="btn btn-primary btn-full" id="printHistoryTicket">Print Ticket</button>
+    </dialog>
+</body>
+</html>
